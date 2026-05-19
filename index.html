@@ -1,0 +1,1093 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GCE Level 1 Cheat Sheet & Prep Dashboard</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Inter for UI, Fredoka for playful headers mimicking the poster style -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome for beautiful icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .header-font {
+            font-family: 'Fredoka', sans-serif;
+        }
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 flex flex-col min-h-screen">
+
+    <!-- TOP HEADER -->
+    <header class="bg-white border-b border-slate-200 sticky top-0 z-40 px-4 py-3 md:px-6 shadow-sm">
+        <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+            <!-- Brand & Title -->
+            <div class="flex items-center gap-3">
+                <div class="flex gap-1 text-2xl font-bold header-font">
+                    <span class="text-[#4285F4]">G</span>
+                    <span class="text-[#EA4335]">o</span>
+                    <span class="text-[#FBBC05]">o</span>
+                    <span class="text-[#4285F4]">g</span>
+                    <span class="text-[#34A853]">l</span>
+                    <span class="text-[#EA4335]">e</span>
+                </div>
+                <div class="h-6 w-[2px] bg-slate-300"></div>
+                <div>
+                    <h1 class="text-lg font-bold text-slate-800 leading-tight header-font tracking-wide">Master GCE Level 1</h1>
+                    <p class="text-xs text-slate-500">Interactive Prep Guide & Task Checklist</p>
+                </div>
+            </div>
+
+            <!-- Search & Quick Progress -->
+            <div class="flex items-center gap-4 w-full sm:w-auto">
+                <!-- Search Bar -->
+                <div class="relative w-full sm:w-64">
+                    <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i>
+                    <input type="text" id="dashboardSearch" placeholder="Search exam tasks..." 
+                           class="w-full pl-9 pr-4 py-1.5 text-sm bg-slate-100 focus:bg-white border border-transparent focus:border-[#4285F4] rounded-full transition-all outline-none">
+                </div>
+
+                <!-- Global Progress Circular Meter -->
+                <div class="flex items-center gap-2 bg-slate-100 px-3 py-1.5 rounded-full shrink-0">
+                    <span class="text-xs font-semibold text-slate-600">Progress:</span>
+                    <span id="overallProgressPercent" class="text-xs font-bold text-[#34A853]">0%</span>
+                    <div class="w-16 bg-slate-200 rounded-full h-2 overflow-hidden">
+                        <div id="overallProgressBar" class="bg-[#34A853] h-full transition-all duration-500" style="width: 0%"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- CONTAINER -->
+    <div class="max-w-7xl mx-auto w-full px-4 py-6 md:px-6 flex-1 flex flex-col md:flex-row gap-6">
+        
+        <!-- SIDE NAVIGATION -->
+        <aside class="w-full md:w-64 shrink-0 flex flex-col gap-4">
+            <!-- Navigation Cards -->
+            <div class="bg-white border border-slate-200 rounded-2xl p-4 shadow-sm flex flex-col gap-1.5">
+                <span class="text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-2 px-2">Navigation Steps</span>
+                
+                <!-- Tab: Overview / Cheat Sheet -->
+                <button onclick="switchTab('tab-cheat-sheet')" id="btn-tab-cheat-sheet" class="tab-btn w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-left text-sm font-semibold transition-all bg-blue-50 text-[#4285F4]">
+                    <div class="flex items-center gap-3">
+                        <div class="w-8 h-8 rounded-lg flex items-center justify-center bg-blue-500 text-white shadow-sm shrink-0">
+                            <i class="fa-solid fa-cubes"></i>
+                        </div>
+                        <div>
+                            <p class="font-bold">Forms & Sheets</p>
+                            <p class="text-[10px] text-[#4285f4b0] font-normal">GCE Level 1 Core</p>
+                        </div>
+                    </div>
+                    <span class="text-xs bg-white text-blue-600 font-bold px-2 py-0.5 rounded-full border border-blue-100 shadow-sm" id="progress-cheat-sheet">0/13</span>
+                </button>
+
+                <!-- Tab: Step 1: Remote Browser -->
+                <button onclick="switchTab('tab-step1')" id="btn-tab-step1" class="tab-btn w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-left text-sm font-medium transition-all hover:bg-slate-50 text-slate-600">
+                    <div class="flex items-center gap-3">
+                        <div class="w-8 h-8 rounded-lg flex items-center justify-center bg-yellow-500 text-white shadow-sm shrink-0">
+                            <i class="fa-solid fa-display"></i>
+                        </div>
+                        <div>
+                            <p class="font-bold">Step 1: Remote Browser</p>
+                            <p class="text-[10px] text-slate-400 font-normal">Secure Exam Setup</p>
+                        </div>
+                    </div>
+                    <span class="text-xs bg-slate-100 text-slate-600 font-semibold px-2 py-0.5 rounded-full" id="progress-step1">0/5</span>
+                </button>
+
+                <!-- Tab: Step 2: Google Classroom -->
+                <button onclick="switchTab('tab-step2')" id="btn-tab-step2" class="tab-btn w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-left text-sm font-medium transition-all hover:bg-slate-50 text-slate-600">
+                    <div class="flex items-center gap-3">
+                        <div class="w-8 h-8 rounded-lg flex items-center justify-center bg-green-500 text-white shadow-sm shrink-0">
+                            <i class="fa-solid fa-chalkboard-user"></i>
+                        </div>
+                        <div>
+                            <p class="font-bold">Step 2: Classroom</p>
+                            <p class="text-[10px] text-slate-400 font-normal">Lab 1 Instruction Set</p>
+                        </div>
+                    </div>
+                    <span class="text-xs bg-slate-100 text-slate-600 font-semibold px-2 py-0.5 rounded-full" id="progress-step2">0/5</span>
+                </button>
+
+                <!-- Tab: Step 3: Docs + Forms -->
+                <button onclick="switchTab('tab-step3')" id="btn-tab-step3" class="tab-btn w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-left text-sm font-medium transition-all hover:bg-slate-50 text-slate-600">
+                    <div class="flex items-center gap-3">
+                        <div class="w-8 h-8 rounded-lg flex items-center justify-center bg-red-500 text-white shadow-sm shrink-0">
+                            <i class="fa-solid fa-file-invoice"></i>
+                        </div>
+                        <div>
+                            <p class="font-bold">Step 3: Docs + Forms</p>
+                            <p class="text-[10px] text-slate-400 font-normal">Linking & Collaboration</p>
+                        </div>
+                    </div>
+                    <span class="text-xs bg-slate-100 text-slate-600 font-semibold px-2 py-0.5 rounded-full" id="progress-step3">0/10</span>
+                </button>
+            </div>
+
+            <!-- Global Tips & Reminders Card -->
+            <div class="bg-gradient-to-br from-indigo-900 to-slate-900 text-white rounded-2xl p-5 shadow-md flex flex-col gap-4">
+                <div class="flex items-center gap-2">
+                    <i class="fa-solid fa-circle-info text-yellow-400"></i>
+                    <h3 class="font-bold text-sm header-font tracking-wide">EXAM SUCCESS MINDSET</h3>
+                </div>
+                <div class="space-y-3 text-xs text-slate-300">
+                    <div class="flex gap-2.5">
+                        <i class="fa-solid fa-arrow-right text-indigo-400 mt-0.5 shrink-0"></i>
+                        <span>Do <strong class="text-white">one step at a time</strong>, especially for sharing, permissions, and security settings.</span>
+                    </div>
+                    <div class="flex gap-2.5">
+                        <i class="fa-solid fa-arrow-right text-indigo-400 mt-0.5 shrink-0"></i>
+                        <span>Never use personal Google Accounts; always use the <strong class="text-white">provided exam credentials</strong> inside Remote Browser.</span>
+                    </div>
+                    <div class="flex gap-2.5">
+                        <i class="fa-solid fa-arrow-right text-indigo-400 mt-0.5 shrink-0"></i>
+                        <span>Verify everything before navigating out of a step. <strong class="text-white">Auto-saving is real</strong> but double check!</span>
+                    </div>
+                </div>
+                <button onclick="resetAllProgress()" class="w-full py-2 bg-white/10 hover:bg-white/20 text-white rounded-xl text-xs font-semibold transition-all border border-white/10 flex items-center justify-center gap-2 mt-2">
+                    <i class="fa-solid fa-rotate-left"></i>
+                    Reset Checklists
+                </button>
+            </div>
+        </aside>
+
+        <!-- MAIN DASHBOARD CONTENT GRID -->
+        <main class="flex-1 flex flex-col gap-6">
+
+            <!-- 1. VIEW: GOOGLE FORMS & SHEETS CHEAT SHEET -->
+            <section id="tab-cheat-sheet" class="tab-content flex flex-col gap-6">
+                
+                <!-- TOP HEADER CARD -->
+                <div class="bg-white border border-slate-200 rounded-3xl p-6 md:p-8 shadow-sm flex flex-col md:flex-row items-center gap-6 justify-between relative overflow-hidden">
+                    <div class="absolute -right-12 -bottom-12 w-48 h-48 bg-blue-50 rounded-full -z-10 opacity-60"></div>
+                    <div class="absolute right-12 -top-12 w-32 h-32 bg-green-50 rounded-full -z-10 opacity-60"></div>
+                    <div class="flex flex-col gap-2">
+                        <span class="bg-blue-100 text-[#4285F4] text-xs font-extrabold px-3 py-1 rounded-full w-fit uppercase tracking-wider">Cheat Sheet Overview</span>
+                        <h2 class="text-2xl md:text-3xl font-extrabold text-slate-800 header-font leading-tight">Master Google Forms & Sheets</h2>
+                        <p class="text-slate-500 text-sm max-w-xl">
+                            Essential tools to collect, organize, analyze, and manage information efficiently for teaching and learning.
+                        </p>
+                    </div>
+                    <div class="flex gap-3 shrink-0">
+                        <!-- Forms SVG Asset icon -->
+                        <div class="w-12 h-12 rounded-xl bg-purple-100 flex items-center justify-center text-purple-600 shadow-sm" title="Google Forms">
+                            <i class="fa-solid fa-list-check text-xl"></i>
+                        </div>
+                        <div class="w-12 h-12 rounded-xl bg-green-100 flex items-center justify-center text-green-600 shadow-sm" title="Google Sheets">
+                            <i class="fa-solid fa-table text-xl"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CARDS GRID: FORMS vs SHEETS -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    
+                    <!-- GOOGLE FORMS BLOCK -->
+                    <div class="bg-white border border-slate-200 rounded-3xl p-6 shadow-sm flex flex-col justify-between border-t-4 border-t-purple-500">
+                        <div>
+                            <div class="flex items-center justify-between mb-4">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-10 h-10 rounded-xl bg-purple-50 flex items-center justify-center text-purple-600">
+                                        <i class="fa-solid fa-list-ul text-lg"></i>
+                                    </div>
+                                    <h3 class="text-lg font-extrabold text-slate-800 header-font">Google Forms</h3>
+                                </div>
+                                <span class="text-xs bg-purple-100 text-purple-800 font-semibold px-2 py-0.5 rounded-full">Core Component</span>
+                            </div>
+
+                            <!-- What is it & Why it matters -->
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
+                                <div class="bg-slate-50 p-3.5 rounded-2xl">
+                                    <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wide mb-1">What is it?</h4>
+                                    <p class="text-xs text-slate-600 leading-relaxed">
+                                        Create surveys, quizzes, and forms to collect responses quickly and easily.
+                                    </p>
+                                </div>
+                                <div class="bg-slate-50 p-3.5 rounded-2xl">
+                                    <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wide mb-1">Why it matters</h4>
+                                    <ul class="text-[11px] text-slate-600 space-y-1">
+                                        <li><i class="fa-regular fa-circle-check text-purple-500 mr-1"></i> Collect data/feedback</li>
+                                        <li><i class="fa-regular fa-circle-check text-purple-500 mr-1"></i> Auto-analyze responses</li>
+                                        <li><i class="fa-regular fa-circle-check text-purple-500 mr-1"></i> Integrates with Google ecosystem</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <!-- Core tasks Checklist -->
+                            <div class="space-y-3 mb-6">
+                                <h4 class="text-xs font-bold text-slate-500 uppercase tracking-wide mb-1">Core Actions Checklist</h4>
+                                <div class="grid grid-cols-1 gap-2.5">
+                                    <label class="task-item flex items-start gap-3 p-3 bg-slate-50 hover:bg-purple-50/50 rounded-xl cursor-pointer transition-all border border-slate-100">
+                                        <input type="checkbox" data-category="cheat-sheet" class="form-checkbox w-4 h-4 rounded text-purple-600 border-slate-300 mt-0.5" onchange="updateProgress()">
+                                        <div class="text-xs">
+                                            <strong class="block text-slate-800">1. Create a Form</strong>
+                                            <span class="text-slate-500 text-[11px]">Choose from template gallery or start blank.</span>
+                                        </div>
+                                    </label>
+                                    <label class="task-item flex items-start gap-3 p-3 bg-slate-50 hover:bg-purple-50/50 rounded-xl cursor-pointer transition-all border border-slate-100">
+                                        <input type="checkbox" data-category="cheat-sheet" class="form-checkbox w-4 h-4 rounded text-purple-600 border-slate-300 mt-0.5" onchange="updateProgress()">
+                                        <div class="text-xs">
+                                            <strong class="block text-slate-800">2. Add Questions & Selection Rules</strong>
+                                            <span class="text-slate-500 text-[11px]">Multiple choice, checkbox, dropdown, dropdown dates.</span>
+                                        </div>
+                                    </label>
+                                    <label class="task-item flex items-start gap-3 p-3 bg-slate-50 hover:bg-purple-50/50 rounded-xl cursor-pointer transition-all border border-slate-100">
+                                        <input type="checkbox" data-category="cheat-sheet" class="form-checkbox w-4 h-4 rounded text-purple-600 border-slate-300 mt-0.5" onchange="updateProgress()">
+                                        <div class="text-xs">
+                                            <strong class="block text-slate-800">3. Customize Design & Logic</strong>
+                                            <span class="text-slate-500 text-[11px]">Section logic based on answers; custom headers.</span>
+                                        </div>
+                                    </label>
+                                    <label class="task-item flex items-start gap-3 p-3 bg-slate-50 hover:bg-purple-50/50 rounded-xl cursor-pointer transition-all border border-slate-100">
+                                        <input type="checkbox" data-category="cheat-sheet" class="form-checkbox w-4 h-4 rounded text-purple-600 border-slate-300 mt-0.5" onchange="updateProgress()">
+                                        <div class="text-xs">
+                                            <strong class="block text-slate-800">4. Set Response Limits</strong>
+                                            <span class="text-slate-500 text-[11px]">Limit to 1 response, collect email addresses.</span>
+                                        </div>
+                                    </label>
+                                    <label class="task-item flex items-start gap-3 p-3 bg-slate-50 hover:bg-purple-50/50 rounded-xl cursor-pointer transition-all border border-slate-100">
+                                        <input type="checkbox" data-category="cheat-sheet" class="form-checkbox w-4 h-4 rounded text-purple-600 border-slate-300 mt-0.5" onchange="updateProgress()">
+                                        <div class="text-xs">
+                                            <strong class="block text-slate-800">5. View & Link to Sheets</strong>
+                                            <span class="text-slate-500 text-[11px]">Click 'Responses' -> 'Link to Sheets' to export.</span>
+                                        </div>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Example Tasks Banner -->
+                        <div class="bg-purple-50 border border-purple-100 rounded-2xl p-4 flex gap-3 items-start">
+                            <i class="fa-solid fa-lightbulb text-purple-600 mt-0.5"></i>
+                            <div class="text-xs">
+                                <span class="font-extrabold text-purple-900 block header-font">Key Lab Tasks:</span>
+                                <span class="text-purple-700 leading-relaxed block mt-1">Create a math quiz with section logic that branches students who get incorrect answers to a tutorial video.</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- GOOGLE SHEETS BLOCK -->
+                    <div class="bg-white border border-slate-200 rounded-3xl p-6 shadow-sm flex flex-col justify-between border-t-4 border-t-green-500">
+                        <div>
+                            <div class="flex items-center justify-between mb-4">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-10 h-10 rounded-xl bg-green-50 flex items-center justify-center text-green-600">
+                                        <i class="fa-solid fa-table-cells text-lg"></i>
+                                    </div>
+                                    <h3 class="text-lg font-extrabold text-slate-800 header-font">Google Sheets</h3>
+                                </div>
+                                <span class="text-xs bg-green-100 text-green-800 font-semibold px-2 py-0.5 rounded-full">Core Component</span>
+                            </div>
+
+                            <!-- What is it & Why it matters -->
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
+                                <div class="bg-slate-50 p-3.5 rounded-2xl">
+                                    <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wide mb-1">What is it?</h4>
+                                    <p class="text-xs text-slate-600 leading-relaxed">
+                                        A powerful online spreadsheet to organize, calculate, analyze, and visualize data in real time.
+                                    </p>
+                                </div>
+                                <div class="bg-slate-50 p-3.5 rounded-2xl">
+                                    <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wide mb-1">Why it matters</h4>
+                                    <ul class="text-[11px] text-slate-600 space-y-1">
+                                        <li><i class="fa-regular fa-circle-check text-green-500 mr-1"></i> Fast data formulas</li>
+                                        <li><i class="fa-regular fa-circle-check text-green-500 mr-1"></i> Multi-user collaboration</li>
+                                        <li><i class="fa-regular fa-circle-check text-green-500 mr-1"></i> Dynamic chart generator</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <!-- Core tasks Checklist -->
+                            <div class="space-y-3 mb-6">
+                                <h4 class="text-xs font-bold text-slate-500 uppercase tracking-wide mb-1">Core Actions Checklist</h4>
+                                <div class="grid grid-cols-1 gap-2.5">
+                                    <label class="task-item flex items-start gap-3 p-3 bg-slate-50 hover:bg-green-50/50 rounded-xl cursor-pointer transition-all border border-slate-100">
+                                        <input type="checkbox" data-category="cheat-sheet" class="form-checkbox w-4 h-4 rounded text-green-600 border-slate-300 mt-0.5" onchange="updateProgress()">
+                                        <div class="text-xs">
+                                            <strong class="block text-slate-800">1. Organize Data Structures</strong>
+                                            <span class="text-slate-500 text-[11px]">Setup proper columns, format number values & tables.</span>
+                                        </div>
+                                    </label>
+                                    <label class="task-item flex items-start gap-3 p-3 bg-slate-50 hover:bg-green-50/50 rounded-xl cursor-pointer transition-all border border-slate-100">
+                                        <input type="checkbox" data-category="cheat-sheet" class="form-checkbox w-4 h-4 rounded text-green-600 border-slate-300 mt-0.5" onchange="updateProgress()">
+                                        <div class="text-xs">
+                                            <strong class="block text-slate-800">2. Apply Formulas & Functions</strong>
+                                            <span class="text-slate-500 text-[11px]">Use standard formulas: <code class="font-mono bg-green-50 text-green-700 px-1 py-0.5 rounded">SUM</code>, <code class="font-mono bg-green-50 text-green-700 px-1 py-0.5 rounded">AVERAGE</code>, <code class="font-mono bg-green-50 text-green-700 px-1 py-0.5 rounded">COUNT</code>, <code class="font-mono bg-green-50 text-green-700 px-1 py-0.5 rounded">MAX</code>, <code class="font-mono bg-green-50 text-green-700 px-1 py-0.5 rounded">MIN</code>.</span>
+                                        </div>
+                                    </label>
+                                    <label class="task-item flex items-start gap-3 p-3 bg-slate-50 hover:bg-green-50/50 rounded-xl cursor-pointer transition-all border border-slate-100">
+                                        <input type="checkbox" data-category="cheat-sheet" class="form-checkbox w-4 h-4 rounded text-green-600 border-slate-300 mt-0.5" onchange="updateProgress()">
+                                        <div class="text-xs">
+                                            <strong class="block text-slate-800">3. Apply Conditional Formatting</strong>
+                                            <span class="text-slate-500 text-[11px]">Highlight cells with low scores in Red, high scores in Green.</span>
+                                        </div>
+                                    </label>
+                                    <label class="task-item flex items-start gap-3 p-3 bg-slate-50 hover:bg-green-50/50 rounded-xl cursor-pointer transition-all border border-slate-100">
+                                        <input type="checkbox" data-category="cheat-sheet" class="form-checkbox w-4 h-4 rounded text-green-600 border-slate-300 mt-0.5" onchange="updateProgress()">
+                                        <div class="text-xs">
+                                            <strong class="block text-slate-800">4. Sort & Filter Data ranges</strong>
+                                            <span class="text-slate-500 text-[11px]">Create a filter view or sort data range alphabetically.</span>
+                                        </div>
+                                    </label>
+                                    <label class="task-item flex items-start gap-3 p-3 bg-slate-50 hover:bg-green-50/50 rounded-xl cursor-pointer transition-all border border-slate-100">
+                                        <input type="checkbox" data-category="cheat-sheet" class="form-checkbox w-4 h-4 rounded text-green-600 border-slate-300 mt-0.5" onchange="updateProgress()">
+                                        <div class="text-xs">
+                                            <strong class="block text-slate-800">5. Insert Visual Charts</strong>
+                                            <span class="text-slate-500 text-[11px]">Generate Pie, Column or Line graphs directly from columns.</span>
+                                        </div>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Example Tasks Banner -->
+                        <div class="bg-green-50 border border-green-100 rounded-2xl p-4 flex gap-3 items-start">
+                            <i class="fa-solid fa-lightbulb text-green-600 mt-0.5"></i>
+                            <div class="text-xs">
+                                <span class="font-extrabold text-green-900 block header-font">Key Lab Tasks:</span>
+                                <span class="text-green-700 leading-relaxed block mt-1">Create student grade sheets, calculate the average marks for a midterm, and sort the list in descending order of performance.</span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- INTEGRATION PIPELINE: BETTER TOGETHER -->
+                <div class="bg-white border border-slate-200 rounded-3xl p-6 shadow-sm">
+                    <h3 class="text-md font-extrabold text-slate-800 header-font mb-4 flex items-center gap-2">
+                        <i class="fa-solid fa-puzzle-piece text-blue-500"></i>
+                        Forms & Sheets Work Better Together!
+                    </h3>
+                    <div class="grid grid-cols-1 md:grid-cols-5 gap-4 relative">
+                        <div class="bg-slate-50 p-4 rounded-2xl relative border border-slate-100 flex flex-col justify-between">
+                            <span class="text-xs font-bold text-slate-400 block mb-1">01. Create</span>
+                            <p class="text-xs font-semibold text-slate-800 mb-2">Design Form</p>
+                            <span class="text-[11px] text-slate-500 leading-normal">Formulate structured fields for data collection.</span>
+                        </div>
+                        <div class="bg-slate-50 p-4 rounded-2xl relative border border-slate-100 flex flex-col justify-between">
+                            <span class="text-xs font-bold text-slate-400 block mb-1">02. Distribute</span>
+                            <p class="text-xs font-semibold text-slate-800 mb-2">Collect Responses</p>
+                            <span class="text-[11px] text-slate-500 leading-normal">Share links to students for submissions.</span>
+                        </div>
+                        <div class="bg-slate-50 p-4 rounded-2xl relative border border-slate-100 flex flex-col justify-between">
+                            <span class="text-xs font-bold text-slate-400 block mb-1">03. Store</span>
+                            <p class="text-xs font-semibold text-slate-800 mb-2">Link to Sheets</p>
+                            <span class="text-[11px] text-slate-500 leading-normal">Responses feed directly into spreadsheet cells.</span>
+                        </div>
+                        <div class="bg-slate-50 p-4 rounded-2xl relative border border-slate-100 flex flex-col justify-between">
+                            <span class="text-xs font-bold text-slate-400 block mb-1">04. Process</span>
+                            <p class="text-xs font-semibold text-slate-800 mb-2">Analyze & Visualize</p>
+                            <span class="text-[11px] text-slate-500 leading-normal">Add summary formulas, averages, and auto-charts.</span>
+                        </div>
+                        <div class="bg-blue-50 border border-blue-100 p-4 rounded-2xl relative flex flex-col justify-between">
+                            <span class="text-xs font-bold text-blue-400 block mb-1">05. Deliver</span>
+                            <p class="text-xs font-bold text-[#4285F4] mb-2">Make an Impact</p>
+                            <span class="text-[11px] text-slate-600 leading-normal">Use clean metrics to make teaching and grades-tracking seamless!</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- BEST PRACTICES & COMMON MISTAKES -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <!-- Column 1: Best Practices -->
+                    <div class="bg-white border border-slate-200 rounded-3xl p-6 shadow-sm">
+                        <div class="flex items-center gap-2 mb-4">
+                            <i class="fa-solid fa-circle-check text-[#34A853] text-lg"></i>
+                            <h3 class="text-sm font-extrabold text-slate-800 header-font">BEST PRACTICES</h3>
+                        </div>
+                        <div class="space-y-3">
+                            <label class="flex items-start gap-2.5 cursor-pointer text-xs">
+                                <input type="checkbox" data-category="cheat-sheet" class="form-checkbox rounded text-green-600 border-slate-300 mt-0.5" onchange="updateProgress()">
+                                <span class="text-slate-600">Keep questions clear, concise and properly structured.</span>
+                            </label>
+                            <label class="flex items-start gap-2.5 cursor-pointer text-xs">
+                                <input type="checkbox" data-category="cheat-sheet" class="form-checkbox rounded text-green-600 border-slate-300 mt-0.5" onchange="updateProgress()">
+                                <span class="text-slate-600">Always test your form via preview link before distribution.</span>
+                            </label>
+                            <label class="flex items-start gap-2.5 cursor-pointer text-xs">
+                                <input type="checkbox" data-category="cheat-sheet" class="form-checkbox rounded text-green-600 border-slate-300 mt-0.5" onchange="updateProgress()">
+                                <span class="text-slate-600">Organize sheets with clear headers; freeze top row.</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Column 2: Exam Tips -->
+                    <div class="bg-white border border-slate-200 rounded-3xl p-6 shadow-sm">
+                        <div class="flex items-center gap-2 mb-4">
+                            <i class="fa-solid fa-graduation-cap text-[#FBBC05] text-lg"></i>
+                            <h3 class="text-sm font-extrabold text-slate-800 header-font">EXAM TIPS</h3>
+                        </div>
+                        <p class="text-xs text-slate-500 mb-3">Keep these checklist mindsets active during active lab simulations.</p>
+                        <div class="space-y-3">
+                            <label class="flex items-start gap-2.5 cursor-pointer text-xs">
+                                <input type="checkbox" data-category="cheat-sheet" class="form-checkbox rounded text-yellow-500 border-slate-300 mt-0.5" onchange="updateProgress()">
+                                <span class="text-slate-600"><strong>Read</strong> exam instructions carefully for names of ranges.</span>
+                            </label>
+                            <label class="flex items-start gap-2.5 cursor-pointer text-xs">
+                                <input type="checkbox" data-category="cheat-sheet" class="form-checkbox rounded text-yellow-500 border-slate-300 mt-0.5" onchange="updateProgress()">
+                                <span class="text-slate-600">Manage time wisely. Skip hard steps and return later.</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Column 3: Common Mistakes -->
+                    <div class="bg-red-50/50 border border-red-100 rounded-3xl p-6 shadow-sm">
+                        <div class="flex items-center gap-2 mb-4">
+                            <i class="fa-solid fa-circle-exclamation text-[#EA4335] text-lg"></i>
+                            <h3 class="text-sm font-extrabold text-slate-800 header-font">COMMON MISTAKES</h3>
+                        </div>
+                        <ul class="space-y-3 text-xs text-slate-600">
+                            <li class="flex items-start gap-2">
+                                <span class="text-red-500 shrink-0 font-bold">✕</span>
+                                <span>Using wrong response question types (e.g. Checkbox vs Multiple Choice).</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <span class="text-red-500 shrink-0 font-bold">✕</span>
+                                <span>Typing formulas with incorrect cell range coordinates.</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <span class="text-red-500 shrink-0 font-bold">✕</span>
+                                <span>Forgetting to apply sorting/filters to the *entire* table range.</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 2. VIEW: STEP 1: MASTER REMOTE BROWSER -->
+            <section id="tab-step1" class="tab-content hidden flex flex-col gap-6">
+                <!-- TOP HEADER CARD -->
+                <div class="bg-white border border-slate-200 rounded-3xl p-6 md:p-8 shadow-sm flex flex-col md:flex-row items-center gap-6 justify-between relative overflow-hidden">
+                    <div class="absolute -right-12 -bottom-12 w-48 h-48 bg-yellow-50 rounded-full -z-10 opacity-60"></div>
+                    <div class="flex flex-col gap-2">
+                        <span class="bg-yellow-100 text-yellow-800 text-xs font-extrabold px-3 py-1 rounded-full w-fit uppercase tracking-wider">Step 1</span>
+                        <h2 class="text-2xl md:text-3xl font-extrabold text-slate-800 header-font leading-tight">Master Remote Browser</h2>
+                        <p class="text-slate-500 text-sm max-w-xl">
+                            The Remote Browser is a secure online workspace environment provided during the GCE exam. Ensure you perform all lab work inside it.
+                        </p>
+                    </div>
+                    <div class="w-16 h-16 rounded-2xl bg-yellow-100 flex items-center justify-center text-yellow-600 shadow-sm shrink-0">
+                        <i class="fa-solid fa-display text-2xl"></i>
+                    </div>
+                </div>
+
+                <!-- HOW TO USE THE REMOTE BROWSER -->
+                <div class="bg-white border border-slate-200 rounded-3xl p-6 shadow-sm">
+                    <h3 class="text-md font-extrabold text-slate-800 header-font mb-4 flex items-center gap-2">
+                        <i class="fa-solid fa-circle-play text-yellow-500"></i>
+                        Setup Instructions Checklist
+                    </h3>
+                    
+                    <div class="space-y-4">
+                        <!-- Step 1 item -->
+                        <div class="flex items-start gap-4 p-4 hover:bg-slate-50 rounded-2xl transition-all border border-transparent hover:border-slate-100">
+                            <label class="flex items-center justify-center shrink-0 mt-1 cursor-pointer">
+                                <input type="checkbox" data-category="step1" class="form-checkbox w-5 h-5 rounded text-yellow-500 border-slate-300" onchange="updateProgress()">
+                            </label>
+                            <div class="flex-1">
+                                <div class="flex items-center gap-2 mb-1">
+                                    <span class="bg-slate-200 text-slate-800 text-[10px] font-extrabold px-2 py-0.5 rounded-full">ACTION 1</span>
+                                    <h4 class="text-sm font-bold text-slate-800">Go to the Link</h4>
+                                </div>
+                                <p class="text-xs text-slate-600 leading-relaxed">Click the "Remote Browser" link provided in your exam instructions. Keep this exam instructions page open in a separate window if needed.</p>
+                            </div>
+                        </div>
+
+                        <!-- Step 2 item -->
+                        <div class="flex items-start gap-4 p-4 hover:bg-slate-50 rounded-2xl transition-all border border-transparent hover:border-slate-100">
+                            <label class="flex items-center justify-center shrink-0 mt-1 cursor-pointer">
+                                <input type="checkbox" data-category="step1" class="form-checkbox w-5 h-5 rounded text-yellow-500 border-slate-300" onchange="updateProgress()">
+                            </label>
+                            <div class="flex-1">
+                                <div class="flex items-center gap-2 mb-1">
+                                    <span class="bg-slate-200 text-slate-800 text-[10px] font-extrabold px-2 py-0.5 rounded-full">ACTION 2</span>
+                                    <h4 class="text-sm font-bold text-slate-800">Copy the Access Token/Link</h4>
+                                </div>
+                                <p class="text-xs text-slate-600 leading-relaxed">Click 'Copy' on the console view to capture the secure access key token directly into your buffer.</p>
+                            </div>
+                        </div>
+
+                        <!-- Step 3 item -->
+                        <div class="flex items-start gap-4 p-4 hover:bg-slate-50 rounded-2xl transition-all border border-transparent hover:border-slate-100">
+                            <label class="flex items-center justify-center shrink-0 mt-1 cursor-pointer">
+                                <input type="checkbox" data-category="step1" class="form-checkbox w-5 h-5 rounded text-yellow-500 border-slate-300" onchange="updateProgress()">
+                            </label>
+                            <div class="flex-1">
+                                <div class="flex items-center gap-2 mb-1">
+                                    <span class="bg-slate-200 text-slate-800 text-[10px] font-extrabold px-2 py-0.5 rounded-full">ACTION 3</span>
+                                    <h4 class="text-sm font-bold text-slate-800">Open a New Tab</h4>
+                                </div>
+                                <p class="text-xs text-slate-600 leading-relaxed">Open a completely new workspace tab (<kbd class="px-1.5 py-0.5 bg-slate-100 border border-slate-300 rounded text-[10px] font-mono">Ctrl + T</kbd>), paste the copied secure link into the address bar, and hit Enter.</p>
+                            </div>
+                        </div>
+
+                        <!-- Step 4 item -->
+                        <div class="flex items-start gap-4 p-4 hover:bg-slate-50 rounded-2xl transition-all border border-transparent hover:border-slate-100">
+                            <label class="flex items-center justify-center shrink-0 mt-1 cursor-pointer">
+                                <input type="checkbox" data-category="step1" class="form-checkbox w-5 h-5 rounded text-yellow-500 border-slate-300" onchange="updateProgress()">
+                            </label>
+                            <div class="flex-1">
+                                <div class="flex items-center gap-2 mb-1">
+                                    <span class="bg-slate-200 text-slate-800 text-[10px] font-extrabold px-2 py-0.5 rounded-full">ACTION 4</span>
+                                    <h4 class="text-sm font-bold text-slate-800">Sign-in Automatically</h4>
+                                </div>
+                                <p class="text-xs text-slate-600 leading-relaxed">Sign in automatically with the workspace user account/credentials configured specifically for your exam. DO NOT use personal credentials.</p>
+                            </div>
+                        </div>
+
+                        <!-- Step 5 item -->
+                        <div class="flex items-start gap-4 p-4 hover:bg-slate-50 rounded-2xl transition-all border border-transparent hover:border-slate-100">
+                            <label class="flex items-center justify-center shrink-0 mt-1 cursor-pointer">
+                                <input type="checkbox" data-category="step1" class="form-checkbox w-5 h-5 rounded text-yellow-500 border-slate-300" onchange="updateProgress()">
+                            </label>
+                            <div class="flex-1">
+                                <div class="flex items-center gap-2 mb-1">
+                                    <span class="bg-slate-200 text-slate-800 text-[10px] font-extrabold px-2 py-0.5 rounded-full">ACTION 5</span>
+                                    <h4 class="text-sm font-bold text-slate-800">Wait for Desktop & Run Lab</h4>
+                                </div>
+                                <p class="text-xs text-slate-600 leading-relaxed">Let the browser interface initialize. Once fully loaded, your virtual testing interface is active and ready to perform tasks!</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ALERTS GRID: STEP 1 GOOD TO REMEMBER -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="bg-slate-900 text-white rounded-3xl p-6 shadow-sm">
+                        <h3 class="text-sm font-extrabold text-yellow-400 header-font mb-4 flex items-center gap-2">
+                            <i class="fa-solid fa-shield-halved"></i>
+                            REMOTE BROWSER MANDATORY RULES
+                        </h3>
+                        <div class="space-y-3 text-xs text-slate-300 leading-relaxed">
+                            <div class="flex gap-2.5">
+                                <span class="text-yellow-400 font-bold shrink-0">•</span>
+                                <p><strong>Do not leave or open other tabs</strong> outside the sandbox. Your activity is proctored.</p>
+                            </div>
+                            <div class="flex gap-2.5">
+                                <span class="text-yellow-400 font-bold shrink-0">•</span>
+                                <p><strong>Save work regularly</strong> within the native Google tool editors (Docs, Sheets, Slides, Forms).</p>
+                            </div>
+                            <div class="flex gap-2.5">
+                                <span class="text-yellow-400 font-bold shrink-0">•</span>
+                                <p>Keep your <strong>internet connection stable</strong>. Do not download large assets during the test.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-red-50 border border-red-100 text-slate-800 rounded-3xl p-6 shadow-sm">
+                        <h3 class="text-sm font-extrabold text-red-600 header-font mb-4 flex items-center gap-2">
+                            <i class="fa-solid fa-triangle-exclamation"></i>
+                            COMMON MISTAKES TO AVOID
+                        </h3>
+                        <div class="space-y-3 text-xs text-slate-600 leading-relaxed">
+                            <div class="flex gap-2.5">
+                                <span class="text-red-500 font-bold shrink-0">✕</span>
+                                <p><strong>Opening tasks or files outside the sandbox environment.</strong> This will prevent automated evaluation from tracking your work.</p>
+                            </div>
+                            <div class="flex gap-2.5">
+                                <span class="text-red-500 font-bold shrink-0">✕</span>
+                                <p><strong>Not checking user sign-in status.</strong> Double check that the active avatar matches your exam candidate profile.</p>
+                            </div>
+                            <div class="flex gap-2.5">
+                                <span class="text-red-500 font-bold shrink-0">✕</span>
+                                <p><strong>Failing to hit submit</strong> on specific Google Classroom tasks once completed.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 3. VIEW: STEP 2: LAB 1 - GOOGLE CLASSROOM -->
+            <section id="tab-step2" class="tab-content hidden flex flex-col gap-6">
+                <!-- TOP HEADER CARD -->
+                <div class="bg-white border border-slate-200 rounded-3xl p-6 md:p-8 shadow-sm flex flex-col md:flex-row items-center gap-6 justify-between relative overflow-hidden">
+                    <div class="absolute -right-12 -bottom-12 w-48 h-48 bg-green-50 rounded-full -z-10 opacity-60"></div>
+                    <div class="flex flex-col gap-2">
+                        <span class="bg-green-100 text-green-800 text-xs font-extrabold px-3 py-1 rounded-full w-fit uppercase tracking-wider">Step 2</span>
+                        <h2 class="text-2xl md:text-3xl font-extrabold text-slate-800 header-font leading-tight">Lab 1 - Google Classroom Setup</h2>
+                        <p class="text-slate-500 text-sm max-w-xl">
+                            Configure Class templates effectively. Go beyond simple classroom initialization to implement automations and organization parameters.
+                        </p>
+                    </div>
+                    <div class="w-16 h-16 rounded-2xl bg-green-100 flex items-center justify-center text-green-600 shadow-sm shrink-0">
+                        <i class="fa-solid fa-chalkboard text-2xl"></i>
+                    </div>
+                </div>
+
+                <!-- INTERACTIVE SECTIONS (A, B, C, D) -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    
+                    <!-- Box A: COPY & PASTE IMPORTANT TEXTS -->
+                    <div class="bg-white border border-slate-200 rounded-3xl p-6 shadow-sm flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center gap-3 mb-4">
+                                <div class="w-9 h-9 rounded-xl bg-blue-50 text-[#4285F4] font-extrabold flex items-center justify-center header-font">A</div>
+                                <h3 class="font-extrabold text-slate-800 header-font">Copy & Paste Important Texts</h3>
+                            </div>
+                            <p class="text-xs text-slate-500 mb-4 leading-relaxed">
+                                Paste class registration details, course syllabus outline, tasks & custom evaluation rubrics directly into class streams.
+                            </p>
+                            <label class="flex items-start gap-3 p-3 bg-slate-50 rounded-2xl cursor-pointer hover:bg-slate-100/50 transition-all border border-slate-100">
+                                <input type="checkbox" data-category="step2" class="form-checkbox w-4 h-4 rounded text-green-600 border-slate-300 mt-0.5" onchange="updateProgress()">
+                                <div class="text-xs">
+                                    <span class="font-bold text-slate-800 block">Check Formatting Details</span>
+                                    <span class="text-slate-500 text-[11px] block mt-0.5">Ensure text formatting is clean, readable, and includes instructions without line break issues.</span>
+                                </div>
+                            </label>
+                        </div>
+                        <div class="mt-4 pt-4 border-t border-slate-100 text-[11px] text-slate-400">
+                            💡 Use standard paste keys <kbd class="px-1 bg-slate-100 border rounded">Ctrl+V</kbd> inside remote VM environment.
+                        </div>
+                    </div>
+
+                    <!-- Box B: ATTACH 2 RESOURCES -->
+                    <div class="bg-white border border-slate-200 rounded-3xl p-6 shadow-sm flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center gap-3 mb-4">
+                                <div class="w-9 h-9 rounded-xl bg-yellow-50 text-yellow-600 font-extrabold flex items-center justify-center header-font">B</div>
+                                <h3 class="font-extrabold text-slate-800 header-font">Attach Resources Correctly</h3>
+                            </div>
+                            <p class="text-xs text-slate-500 mb-4 leading-relaxed">
+                                Always link external study materials. You are required to attach exactly <strong>2 resources</strong> for homework streams:
+                            </p>
+                            <div class="space-y-2 mb-4">
+                                <label class="flex items-start gap-2.5 cursor-pointer text-xs">
+                                    <input type="checkbox" data-category="step2" class="form-checkbox rounded text-green-600 border-slate-300 mt-0.5" onchange="updateProgress()">
+                                    <span class="text-slate-600"><strong>Resource 1:</strong> Attach 1 video asset from YouTube or Classroom link.</span>
+                                </label>
+                                <label class="flex items-start gap-2.5 cursor-pointer text-xs">
+                                    <input type="checkbox" data-category="step2" class="form-checkbox rounded text-green-600 border-slate-300 mt-0.5" onchange="updateProgress()">
+                                    <span class="text-slate-600"><strong>Resource 2:</strong> Link 1 reference document sourced from Google Drive.</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="bg-blue-50 text-[#4285F4] p-3 rounded-xl text-[11px] leading-relaxed">
+                            <strong>Note:</strong> Proper reference files prevent questions and help virtual students study better.
+                        </div>
+                    </div>
+
+                    <!-- Box C: TURN ON AUTO-MARKING -->
+                    <div class="bg-white border border-slate-200 rounded-3xl p-6 shadow-sm flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center gap-3 mb-4">
+                                <div class="w-9 h-9 rounded-xl bg-purple-50 text-purple-600 font-extrabold flex items-center justify-center header-font">C</div>
+                                <h3 class="font-extrabold text-slate-800 header-font">Turn on Auto-Marking</h3>
+                            </div>
+                            <p class="text-xs text-slate-500 mb-4 leading-relaxed">
+                                Enable Google Forms integration with quiz tasks to compute grading options.
+                            </p>
+                            <div class="space-y-3">
+                                <div class="bg-slate-50 p-3 rounded-xl text-xs space-y-2 border border-slate-100">
+                                    <span class="text-[10px] font-bold text-purple-600 block uppercase">Auto-Marking Process:</span>
+                                    <label class="flex items-start gap-2 cursor-pointer">
+                                        <input type="checkbox" data-category="step2" class="form-checkbox rounded text-green-600 border-slate-300 mt-0.5" onchange="updateProgress()">
+                                        <span class="text-slate-600">Navigate to Classroom <strong>Settings &gt; Grade calculation</strong></span>
+                                    </label>
+                                    <label class="flex items-start gap-2 cursor-pointer">
+                                        <input type="checkbox" data-category="step2" class="form-checkbox rounded text-green-600 border-slate-300 mt-0.5" onchange="updateProgress()">
+                                        <span class="text-slate-600">Turn on Auto-Marking configuration. Select options to let students see raw scores immediately.</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-4 text-[11px] text-slate-400">
+                            ⚙️ Correct responses set via Form key calculates auto scores instantly.
+                        </div>
+                    </div>
+
+                    <!-- Box D: ORGANIZE TOPIC, DUE DATE & STREAM -->
+                    <div class="bg-white border border-slate-200 rounded-3xl p-6 shadow-sm flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center gap-3 mb-4">
+                                <div class="w-9 h-9 rounded-xl bg-red-50 text-red-600 font-extrabold flex items-center justify-center header-font">D</div>
+                                <h3 class="font-extrabold text-slate-800 header-font">Organize Topic, Due Date & Stream</h3>
+                            </div>
+                            <p class="text-xs text-slate-500 mb-4 leading-relaxed">
+                                Unorganized class pages cause student confusion. Keep topics and timelines clean:
+                            </p>
+                            <div class="space-y-2.5">
+                                <div class="flex items-center justify-between p-2.5 bg-slate-50 rounded-xl border border-slate-100">
+                                    <div class="flex items-center gap-2">
+                                        <i class="fa-regular fa-folder text-yellow-500 text-sm"></i>
+                                        <span class="text-xs font-bold text-slate-700">Create a TOPIC</span>
+                                    </div>
+                                    <span class="text-[10px] text-slate-400">Sort tasks by units</span>
+                                </div>
+                                <div class="flex items-center justify-between p-2.5 bg-slate-50 rounded-xl border border-slate-100">
+                                    <div class="flex items-center gap-2">
+                                        <i class="fa-regular fa-calendar-check text-red-500 text-sm"></i>
+                                        <span class="text-xs font-bold text-slate-700">Set DUE DATE</span>
+                                    </div>
+                                    <span class="text-[10px] text-slate-400">Clear homework timelines</span>
+                                </div>
+                                <div class="flex items-center justify-between p-2.5 bg-slate-50 rounded-xl border border-slate-100">
+                                    <div class="flex items-center gap-2">
+                                        <i class="fa-solid fa-bullhorn text-blue-500 text-sm"></i>
+                                        <span class="text-xs font-bold text-slate-700">Post Announcement in STREAM</span>
+                                    </div>
+                                    <span class="text-[10px] text-slate-400">Alert students dynamically</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-4 pt-4 border-t border-slate-100 flex items-center justify-between text-xs font-semibold text-slate-500">
+                            <span>Topic Setup Done?</span>
+                            <label class="relative inline-flex items-center cursor-pointer">
+                                <input type="checkbox" data-category="step2" class="form-checkbox rounded text-green-600 border-slate-300" onchange="updateProgress()">
+                                <span class="ml-2 text-slate-600">Yes</span>
+                            </label>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- CLASSROOM GOOD TO REMEMBER -->
+                <div class="bg-gradient-to-r from-green-800 to-emerald-950 text-white rounded-3xl p-6 shadow-sm">
+                    <h3 class="text-sm font-extrabold text-green-300 header-font mb-4">
+                        <i class="fa-solid fa-circle-check"></i>
+                        PRO-TIPS FOR CLASSROOM MANAGEMENT
+                    </h3>
+                    <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                        <div class="bg-white/10 p-4 rounded-2xl">
+                            <span class="text-yellow-300 font-bold block mb-1">✓ Settings Pre-Check</span>
+                            <span class="text-xs text-slate-200">Double check classroom parameters before hitting "Assign" or "Post".</span>
+                        </div>
+                        <div class="bg-white/10 p-4 rounded-2xl">
+                            <span class="text-yellow-300 font-bold block mb-1">✓ Keep Organized</span>
+                            <span class="text-xs text-slate-200">Sort individual task cards under their respective Subject Topics.</span>
+                        </div>
+                        <div class="bg-white/10 p-4 rounded-2xl">
+                            <span class="text-yellow-300 font-bold block mb-1">✓ Review Before Share</span>
+                            <span class="text-xs text-slate-200">Open links to worksheets to ensure they're formatted clearly.</span>
+                        </div>
+                        <div class="bg-white/10 p-4 rounded-2xl">
+                            <span class="text-yellow-300 font-bold block mb-1">✓ Clear Instructions</span>
+                            <span class="text-xs text-slate-200">Clear explanations = less student grading appeals or questions.</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 4. VIEW: STEP 3: DOCS + FORMS -->
+            <section id="tab-step3" class="tab-content hidden flex flex-col gap-6">
+                <!-- TOP HEADER CARD -->
+                <div class="bg-white border border-slate-200 rounded-3xl p-6 md:p-8 shadow-sm flex flex-col md:flex-row items-center gap-6 justify-between relative overflow-hidden">
+                    <div class="absolute -right-12 -bottom-12 w-48 h-48 bg-red-50 rounded-full -z-10 opacity-60"></div>
+                    <div class="flex flex-col gap-2">
+                        <span class="bg-red-100 text-red-800 text-xs font-extrabold px-3 py-1 rounded-full w-fit uppercase tracking-wider">Step 3</span>
+                        <h2 class="text-2xl md:text-3xl font-extrabold text-slate-800 header-font leading-tight">Google Docs + Google Forms Integration</h2>
+                        <p class="text-slate-500 text-sm max-w-xl">
+                            Configure document permissions, create interactive assignments, map files together, and ensure proper collaboration roles.
+                        </p>
+                    </div>
+                    <div class="w-16 h-16 rounded-2xl bg-red-100 flex items-center justify-center text-red-600 shadow-sm shrink-0">
+                        <i class="fa-solid fa-file-invoice text-2xl"></i>
+                    </div>
+                </div>
+
+                <!-- TWO COLUMNS: GOOGLE DOCS ACTIONS vs GOOGLE FORMS ACTIONS -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    
+                    <!-- COLUMN A: GOOGLE DOCS -->
+                    <div class="bg-white border border-slate-200 rounded-3xl p-6 shadow-sm flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center gap-3 mb-4">
+                                <div class="w-10 h-10 rounded-xl bg-blue-50 text-[#4285F4] flex items-center justify-center">
+                                    <i class="fa-solid fa-file-word text-lg"></i>
+                                </div>
+                                <h3 class="text-lg font-extrabold text-slate-800 header-font">A. Google Docs Lab Tasks</h3>
+                            </div>
+                            
+                            <div class="space-y-3 mb-6">
+                                <label class="task-item flex items-start gap-3 p-3 bg-slate-50 hover:bg-blue-50/50 rounded-xl cursor-pointer transition-all border border-slate-100">
+                                    <input type="checkbox" data-category="step3" class="form-checkbox w-4 h-4 rounded text-blue-600 border-slate-300 mt-0.5" onchange="updateProgress()">
+                                    <div class="text-xs">
+                                        <strong class="block text-slate-800">1. Share Documents with Specific Roles</strong>
+                                        <span class="text-slate-500 text-[11px]">Change roles to "Viewer", "Commenter", or "Editor" based on prompt commands.</span>
+                                    </div>
+                                </label>
+
+                                <label class="task-item flex items-start gap-3 p-3 bg-slate-50 hover:bg-blue-50/50 rounded-xl cursor-pointer transition-all border border-slate-100">
+                                    <input type="checkbox" data-category="step3" class="form-checkbox w-4 h-4 rounded text-blue-600 border-slate-300 mt-0.5" onchange="updateProgress()">
+                                    <div class="text-xs">
+                                        <strong class="block text-slate-800">2. Adjust Share Settings via Gear Icon</strong>
+                                        <span class="text-slate-500 text-[11px]">Click the settings gear in the share pane. Check/uncheck options for editors to change permissions or share copies.</span>
+                                    </div>
+                                </label>
+
+                                <label class="task-item flex items-start gap-3 p-3 bg-slate-50 hover:bg-blue-50/50 rounded-xl cursor-pointer transition-all border border-slate-100">
+                                    <input type="checkbox" data-category="step3" class="form-checkbox w-4 h-4 rounded text-blue-600 border-slate-300 mt-0.5" onchange="updateProgress()">
+                                    <div class="text-xs">
+                                        <strong class="block text-slate-800">3. Use 'Pens' to Add Inline Comments</strong>
+                                        <span class="text-slate-500 text-[11px]">Highlight specific text cells and click comment bubble to insert study corrections.</span>
+                                    </div>
+                                </label>
+
+                                <label class="task-item flex items-start gap-3 p-3 bg-slate-50 hover:bg-blue-50/50 rounded-xl cursor-pointer transition-all border border-slate-100">
+                                    <input type="checkbox" data-category="step3" class="form-checkbox w-4 h-4 rounded text-blue-600 border-slate-300 mt-0.5" onchange="updateProgress()">
+                                    <div class="text-xs">
+                                        <strong class="block text-slate-800">4. Use 'Pencils' to Comment & Assign Tasks</strong>
+                                        <span class="text-slate-500 text-[11px]">Type <kbd class="font-mono text-[9px] bg-white px-1 border">@username</kbd> inside comments and check "Assign to..." to delegate homework.</span>
+                                    </div>
+                                </label>
+
+                                <label class="task-item flex items-start gap-3 p-3 bg-slate-50 hover:bg-blue-50/50 rounded-xl cursor-pointer transition-all border border-slate-100">
+                                    <input type="checkbox" data-category="step3" class="form-checkbox w-4 h-4 rounded text-blue-600 border-slate-300 mt-0.5" onchange="updateProgress()">
+                                    <div class="text-xs">
+                                        <strong class="block text-slate-800">5. Folder Management Extra Tip</strong>
+                                        <span class="text-slate-500 text-[11px]">Create a new student folders path in Drive and drag your workspace docs into it to keep clean structures.</span>
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- COLUMN B: GOOGLE FORMS -->
+                    <div class="bg-white border border-slate-200 rounded-3xl p-6 shadow-sm flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center gap-3 mb-4">
+                                <div class="w-10 h-10 rounded-xl bg-purple-50 text-purple-600 flex items-center justify-center">
+                                    <i class="fa-solid fa-list-check text-lg"></i>
+                                </div>
+                                <h3 class="text-lg font-extrabold text-slate-800 header-font">B. Google Forms Lab Tasks</h3>
+                            </div>
+                            
+                            <div class="space-y-3 mb-6">
+                                <label class="task-item flex items-start gap-3 p-3 bg-slate-50 hover:bg-purple-50/50 rounded-xl cursor-pointer transition-all border border-slate-100">
+                                    <input type="checkbox" data-category="step3" class="form-checkbox w-4 h-4 rounded text-purple-600 border-slate-300 mt-0.5" onchange="updateProgress()">
+                                    <div class="text-xs">
+                                        <strong class="block text-slate-800">1. Collect Responses Accurately</strong>
+                                        <span class="text-slate-500 text-[11px]">Turn on email verification modes to capture school account domains.</span>
+                                    </div>
+                                </label>
+
+                                <label class="task-item flex items-start gap-3 p-3 bg-slate-50 hover:bg-purple-50/50 rounded-xl cursor-pointer transition-all border border-slate-100">
+                                    <input type="checkbox" data-category="step3" class="form-checkbox w-4 h-4 rounded text-purple-600 border-slate-300 mt-0.5" onchange="updateProgress()">
+                                    <div class="text-xs">
+                                        <strong class="block text-slate-800">2. Add Image Sourced from Google Drive</strong>
+                                        <span class="text-slate-500 text-[11px]">Integrate helpful diagrams or visual aids directly into specific question blocks.</span>
+                                    </div>
+                                </label>
+
+                                <label class="task-item flex items-start gap-3 p-3 bg-slate-50 hover:bg-purple-50/50 rounded-xl cursor-pointer transition-all border border-slate-100">
+                                    <input type="checkbox" data-category="step3" class="form-checkbox w-4 h-4 rounded text-purple-600 border-slate-300 mt-0.5" onchange="updateProgress()">
+                                    <div class="text-xs">
+                                        <strong class="block text-slate-800">3. Select Correct Question Block Types</strong>
+                                        <span class="text-slate-500 text-[11px]">Be precise: Checkboxes for multi-selection, Dropdowns for single list selection.</span>
+                                    </div>
+                                </label>
+
+                                <label class="task-item flex items-start gap-3 p-3 bg-slate-50 hover:bg-purple-50/50 rounded-xl cursor-pointer transition-all border border-slate-100">
+                                    <input type="checkbox" data-category="step3" class="form-checkbox w-4 h-4 rounded text-purple-600 border-slate-300 mt-0.5" onchange="updateProgress()">
+                                    <div class="text-xs">
+                                        <strong class="block text-slate-800">4. Settings: Enable "Make this a Quiz"</strong>
+                                        <span class="text-slate-500 text-[11px]">Go to Settings tab -> Toggle "Make this a quiz" on. Designate scoring values & answer keys.</span>
+                                    </div>
+                                </label>
+
+                                <label class="task-item flex items-start gap-3 p-3 bg-slate-50 hover:bg-purple-50/50 rounded-xl cursor-pointer transition-all border border-slate-100">
+                                    <input type="checkbox" data-category="step3" class="form-checkbox w-4 h-4 rounded text-purple-600 border-slate-300 mt-0.5" onchange="updateProgress()">
+                                    <div class="text-xs">
+                                        <strong class="block text-slate-800">5. Responses: Link sheet to store results</strong>
+                                        <span class="text-slate-500 text-[11px]">Verify submissions generate spreadsheet database rows in correct formats.</span>
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- STEP 3 EXTRA TIPS & GOOD TO REMEMBER -->
+                <div class="bg-slate-900 text-white rounded-3xl p-6 shadow-sm">
+                    <h3 class="text-sm font-extrabold text-red-400 header-font mb-4 flex items-center gap-2">
+                        <i class="fa-solid fa-lightbulb"></i>
+                        CRITICAL COLLABORATION CHEAT CODES
+                    </h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-xs text-slate-300 leading-relaxed">
+                        <div class="bg-white/5 p-4 rounded-2xl">
+                            <span class="font-bold text-white block mb-1">Double Check Sharing Roles</span>
+                            <p>Changing settings to "Anyone with link can Edit" is only for general documents. When adding specific reviewers or managers, verify roles carefully: <strong class="text-yellow-400">Editor vs Viewer</strong>.</p>
+                        </div>
+                        <div class="bg-white/5 p-4 rounded-2xl">
+                            <span class="font-bold text-white block mb-1">Collaborator Verification</span>
+                            <p>For forms, click 'Add collaborators' to add editors. Setting general link permission doesn't make collaborators. Do not confuse <strong>Form fillers</strong> with <strong>Form editors</strong>!</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="bg-white border-t border-slate-200 mt-12 py-6 text-center text-xs text-slate-500">
+        <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <span class="header-font font-semibold">Practice today, be confident tomorrow, get certified for your future!</span>
+            <div class="flex gap-4">
+                <a href="#" class="hover:text-slate-800 transition-colors">GCE Level 1 Hub</a>
+                <span>•</span>
+                <a href="#" class="hover:text-slate-800 transition-colors">CIDEX MIDI</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- INTERACTIVE JAVASCRIPT FOR STATE MANAGEMENT & REAL-TIME SEARCH -->
+    <script>
+        // Track completed sub-checklists inside state
+        let state = {
+            'cheat-sheet': [],
+            'step1': [],
+            'step2': [],
+            'step3': []
+        };
+
+        // DOM elements cache
+        const searchInput = document.getElementById('dashboardSearch');
+        const searchItems = document.querySelectorAll('.task-item, label.flex');
+
+        // On Load, run initialization
+        window.addEventListener('DOMContentLoaded', () => {
+            loadProgress();
+            updateProgress();
+
+            // Real-time Search Handler
+            searchInput.addEventListener('input', (e) => {
+                const term = e.target.value.toLowerCase();
+                if (!term) {
+                    searchItems.forEach(item => {
+                        item.classList.remove('opacity-20');
+                        item.style.display = '';
+                    });
+                    return;
+                }
+
+                searchItems.forEach(item => {
+                    const textContent = item.textContent.toLowerCase();
+                    if (textContent.includes(term)) {
+                        item.classList.remove('opacity-20');
+                        item.style.display = '';
+                    } else {
+                        item.classList.add('opacity-20');
+                        // item.style.display = 'none'; // Choose opacity fade or hide. Opacity fade preserves the outline structure.
+                    }
+                });
+            });
+        });
+
+        // Tab Switcher
+        function switchTab(tabId) {
+            // Hide all tabs
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.add('hidden');
+            });
+            // Show selected tab
+            document.getElementById(tabId).classList.remove('hidden');
+
+            // Reset navigation active state styling
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.className = "tab-btn w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-left text-sm font-medium transition-all hover:bg-slate-50 text-slate-600";
+            });
+
+            // Set current tab button active look
+            const activeBtn = document.getElementById(`btn-${tabId}`);
+            if (activeBtn) {
+                activeBtn.className = "tab-btn w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-left text-sm font-semibold transition-all bg-blue-50 text-[#4285F4]";
+            }
+        }
+
+        // Compute Checkbox checklist progress & render states
+        function updateProgress() {
+            const categories = ['cheat-sheet', 'step1', 'step2', 'step3'];
+            let totalChecked = 0;
+            let totalPossible = 0;
+
+            categories.forEach(cat => {
+                const checkboxes = document.querySelectorAll(`input[data-category="${cat}"]`);
+                const checkedCount = Array.from(checkboxes).filter(cb => cb.checked).length;
+                totalChecked += checkedCount;
+                totalPossible += checkboxes.length;
+
+                // Update category badges in the sidebar
+                const badge = document.getElementById(`progress-${cat}`);
+                if (badge) {
+                    badge.textContent = `${checkedCount}/${checkboxes.length}`;
+                    if (checkedCount === checkboxes.length && checkboxes.length > 0) {
+                        badge.className = "text-xs bg-green-100 text-[#34A853] font-bold px-2 py-0.5 rounded-full border border-green-200 shadow-sm";
+                    } else if (checkedCount > 0) {
+                        badge.className = "text-xs bg-yellow-100 text-yellow-600 font-bold px-2 py-0.5 rounded-full border border-yellow-200 shadow-sm";
+                    } else {
+                        badge.className = "text-xs bg-slate-100 text-slate-600 font-semibold px-2 py-0.5 rounded-full";
+                    }
+                }
+
+                // Save states to local memory variables
+                state[cat] = Array.from(checkboxes).map(cb => cb.checked);
+            });
+
+            // Calculate overall progress indicator
+            if (totalPossible > 0) {
+                const percent = Math.round((totalChecked / totalPossible) * 100);
+                document.getElementById('overallProgressPercent').textContent = `${percent}%`;
+                document.getElementById('overallProgressBar').style.width = `${percent}%`;
+            }
+
+            // Save state to session storage so user progress persists inside view
+            sessionStorage.setItem('gce-prep-progress', JSON.stringify(state));
+        }
+
+        // Load progress settings from state memory
+        function loadProgress() {
+            const savedState = sessionStorage.getItem('gce-prep-progress');
+            if (savedState) {
+                try {
+                    state = JSON.parse(savedState);
+                    const categories = ['cheat-sheet', 'step1', 'step2', 'step3'];
+                    
+                    categories.forEach(cat => {
+                        const checkboxes = document.querySelectorAll(`input[data-category="${cat}"]`);
+                        const checkedArray = state[cat] || [];
+                        checkboxes.forEach((cb, idx) => {
+                            if (checkedArray[idx] !== undefined) {
+                                cb.checked = checkedArray[idx];
+                            }
+                        });
+                    });
+                } catch (e) {
+                    console.error("Error reading saved practice progress states", e);
+                }
+            }
+        }
+
+        // Reset progress trackers
+        function resetAllProgress() {
+            const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+            checkboxes.forEach(cb => {
+                cb.checked = false;
+            });
+            sessionStorage.removeItem('gce-prep-progress');
+            updateProgress();
+        }
+    </script>
+</body>
+</html>
